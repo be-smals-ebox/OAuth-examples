@@ -5,11 +5,11 @@ public abstract class POC_CONFIG {
 
     public abstract String getOauth2V2Endpoint();
     public abstract String getAudience();
-    public String getOauth2V2TokenEndpoint(){
-        return getOauth2V2Endpoint()+"/token";
+    public String getOauth2V5TokenEndpoint(){
+        return getOauth2V5Endpoint()+"/token";
     }
     public String getOauth2V2IntrospectEndpoint(){
-        return getOauth2V2Endpoint()+"/introspect";
+        return getOauth2V5Endpoint()+"/introspect";
     }
 
 
