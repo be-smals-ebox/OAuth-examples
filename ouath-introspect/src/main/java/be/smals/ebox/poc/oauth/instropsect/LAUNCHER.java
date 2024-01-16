@@ -5,7 +5,7 @@ public class LAUNCHER {
         POC_CONFIG.inst=new POC_CONFIG(){
 
             @Override
-            public String getOauth2V2Endpoint() {
+            public String getOauth2V5Endpoint() {
 //                return "https://services-int.socialsecurity.be/REST/oauth/v3";  V3 IS DEPRECATED USE V4
                 return "https://services-acpt.socialsecurity.be/REST/oauth/v5";
             }
