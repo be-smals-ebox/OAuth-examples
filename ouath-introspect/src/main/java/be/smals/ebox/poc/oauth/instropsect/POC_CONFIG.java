@@ -8,7 +8,7 @@ public abstract class POC_CONFIG {
     public String getOauth2V5TokenEndpoint(){
         return getOauth2V5Endpoint()+"/token";
     }
-    public String getOauth2V2IntrospectEndpoint(){
+    public String getOauth2V5IntrospectEndpoint(){
         return getOauth2V5Endpoint()+"/introspect";
     }
 
