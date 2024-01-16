@@ -7,13 +7,13 @@ public class LAUNCHER {
             @Override
             public String getOauth2V2Endpoint() {
 //                return "https://services-int.socialsecurity.be/REST/oauth/v3";  V3 IS DEPRECATED USE V4
-                return "https://services-acpt.socialsecurity.be/REST/oauth/v4";
+                return "https://services-acpt.socialsecurity.be/REST/oauth/v5";
             }
 
             @Override
             public String getAudience() {
 //                return "https://oauthint.socialsecurity.be"; V3 IS DEPRECATED USE V4
-                return "https://oauth-v4.acc.pub.socialsecurity.be";
+                return "https://oauth-v5.acc.pub.socialsecurity.be";
             }
 
             @Override
