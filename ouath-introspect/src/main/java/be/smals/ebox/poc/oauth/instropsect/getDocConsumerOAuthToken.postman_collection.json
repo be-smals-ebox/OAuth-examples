@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "fb604701-056a-4098-b400-62f23cec1595",
+		"name": "get Document Consumer OAuth token",
+		"description": "Here I try to get a Document Consumer OAuth token using Postman",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "INIT: Load Crypto Library for RS256",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89aaa0d0-3316-4c62-bd2c-d2369345cfea",
+						"exec": [
+							"pm.globals.set('jsrsasign_js',responseBody);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://kjur.github.io/jsrsasign/jsrsasign-latest-all-min.js",
+					"protocol": "http",
+					"host": [
+						"kjur",
+						"github",
+						"io"
+					],
+					"path": [
+						"jsrsasign",
+						"jsrsasign-latest-all-min.js"
+					]
+				},
+				"description": "The first thing we do is load a library."
+			},
+			"response": []
+		},
+		{
+			"name": "get DocumentConsumer OAuth token V5",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "a335d470-cdb4-4698-8229-b2f9d37aba3e",
+						"exec": [
+							"// Tips from: https://github.com/kjur/jsrsasign/issues/199\r",
+							"// https://github.com/kjur/jsrsasign/wiki/Tutorial-for-JWT-generation\r",
+							"var uuid = require('uuid');\r",
+							"var navigator = {}; //fake a navigator object for the lib\r",
+							"var window = {}; //fake a window object for the lib\r",
+							"eval(postman.getGlobalVariable(\"jsrsasign_js\")); //import javascript jsrsasign\r",
+							"\r",
+							"var header = {\r",
+							"    \"alg\": \"RS256\"\r",
+							"};\r",
+							"\r",
+							"var data = {\r",
+							"    \"exp\": Math.round(87000 + Date.now()/1000),\r",
+							"    \"iss\": 'OAuth:client:ID',\r",
+							"    \"sub\": 'OAuth:client:ID',\r",
+							"    \"aud\": 'https://services.socialsecurity.be/REST/oauth/v5/token',\r",
+							"    \"jti\": uuid()\r",
+							"};\r",
+							"\r",
+							"var secret = postman.getEnvironmentVariable(\"CLIENT_PRIVATE_KEY\"); // Must be PEM formatted, starting with -----BEGIN PRIVATE KEY----- and ending with -----END PRIVATE KEY-----\r",
+							"\r",
+							"if (!secret) {\r",
+							"    console.log(\"Ensure the Private key is added to both INITIAL and CURRENT VALUES in the active Postman environment's CLIENT_PRIVATE_KEY variable.\");\r",
+							"}\r",
+							"\r",
+							"var sHeader = JSON.stringify(header);\r",
+							"var sPayload = JSON.stringify(data);\r",
+							"var sJWT = KJUR.jws.JWS.sign(\"RS256\", sHeader, sPayload, secret);\r",
+							"\r",
+							"// console.log('sJWT: ' + sJWT);\r",
+							"\r",
+							"postman.setEnvironmentVariable(\"JWT_TOKEN\", sJWT);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "6c8d1936-73b3-4c1b-87d7-43a1f0d14ba6",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"console.log(\"responseBody\", responseBody);\r",
+							"\r",
+							"if(data.access_token){\r",
+							"    pm.globals.set(\"myClientTokenFromSmals\", data.access_token);\r",
+							"}\r",
+							"\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "client_assertion_type",
+							"value": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+							"type": "text"
+						},
+						{
+							"key": "grant_type",
+							"value": "client_credentials",
+							"type": "text"
+						},
+						{
+							"key": "client_assertion",
+							"value": "{{JWT_TOKEN}}",
+							"type": "text"
+						},
+						{
+							"key": "scope",
+							"value": "",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://services.socialsecurity.be/REST/oauth/v5/token",
+					"protocol": "https",
+					"host": [
+						"services",
+						"socialsecurity",
+						"be"
+					],
+					"path": [
+						"REST",
+						"oauth",
+						"v5",
+						"token"
+					]
+				},
+				"description": "In order to fill in the JWT_TOKEN variable we need to do a pre request script. We use the private key to sign the token in the pre request script. We don't need a keystore. You will need to put the private key in a global or environment variable together with the audience url (or you can hard-code this)."
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
