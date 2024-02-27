@@ -1,8 +1,9 @@
 # Performing introspect as Document Provider
+This project contains some java examples for Document Providers to perform get token requests to the Smals OAuth server.
 
 This example does the following:
-- Get a token for a Document Consumer with the MESSAGE_FULL and EBOX scopes
-- Get a token for the Document Provider with the INTROSPECT scope
+- Get a token for a Document Consumer with the documentconsumer scope
+- Get a token for the Document Provider with the introspect scope
 - Perform the introspect of the Document Consumer token using the Document Provider
 
 ## What you need

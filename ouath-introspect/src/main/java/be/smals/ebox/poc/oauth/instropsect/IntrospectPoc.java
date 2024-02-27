@@ -21,8 +21,7 @@ public class IntrospectPoc {
 
             // Get token for Document Consumer (used to get ebox messages)
             String accessToken = token==null?new GetAccessTokenV5().getAccessToken(POC_CONFIG.inst.getDocumentConsumerOauthConfig(),
-                    "scope:document:management:consult:ws-eboxrestentreprise:messagesfull",
-                    "scope:document:management:consult:ws-eboxrestentreprise:summaryownebox"
+                    "scope:document:management:consult:ws-eboxrestentreprise:documentconsumer"
             ):token;
             System.out.println("Client token: " + accessToken);
             System.out.println("Server token: " + introspectAccessToken);
