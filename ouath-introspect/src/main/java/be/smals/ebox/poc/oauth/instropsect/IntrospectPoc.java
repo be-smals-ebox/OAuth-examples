@@ -16,7 +16,7 @@ public class IntrospectPoc {
     public void start(String token){
         System.out.println("Started at: "+new Date());
         try {
-            // Get token for Document Provider (used fo introspect)
+            // Get token for Document Provider (used to introspect)
             String introspectAccessToken = new GetAccessTokenV5().getAccessToken(POC_CONFIG.inst.getDocumentProviderOauthConfig(), "scope:security:authorization:oauth:oauth-autz-server:introspect");
 
             // Get token for Document Consumer (used to get ebox messages)
