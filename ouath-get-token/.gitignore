@@ -1,0 +1,4 @@
+/ouath-get-token/target/
+*.class
+*.p12
+*.jks

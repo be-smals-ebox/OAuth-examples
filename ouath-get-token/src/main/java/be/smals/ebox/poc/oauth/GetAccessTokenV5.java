@@ -1,4 +1,4 @@
-package be.smals.ebox.poc.oauth.instropsect;
+package be.smals.ebox.poc.oauth;
 
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.oauth2.sdk.*;
