@@ -11,7 +11,7 @@ public class LAUNCHER {
 
             @Override
             public String getAudience() {
-                return "https://oauth-v5.acc.pub.socialsecurity.be";
+                return "https://services-acpt.socialsecurity.be/REST/oauth/v5/token";
             }
 
             @Override

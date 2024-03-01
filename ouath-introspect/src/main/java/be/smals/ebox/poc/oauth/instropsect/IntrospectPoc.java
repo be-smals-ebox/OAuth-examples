@@ -26,7 +26,7 @@ public class IntrospectPoc {
             System.out.println("Client token: " + accessToken);
             System.out.println("Server token: " + introspectAccessToken);
 
-            JwtClaims claims = new IntrospectProcessorOpaque(POC_CONFIG.inst.getOauth2V2IntrospectEndpoint())
+            JwtClaims claims = new IntrospectProcessorOpaque(POC_CONFIG.inst.getOauth2V5IntrospectEndpoint())
                     .getClaims(introspectAccessToken, accessToken)
                     .orElseThrow(() -> new RuntimeException("Oho"));
 

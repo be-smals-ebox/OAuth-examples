@@ -71,5 +71,29 @@
             <version>7.9</version>
         </dependency>
     </dependencies>
-    
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>be.smals.ebox.poc.oauth.instropsect.LAUNCHER</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.2.1</version>
+                <configuration>
+                    <mainClass>be.smals.ebox.poc.oauth.instropsect.LAUNCHER</mainClass>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

@@ -33,7 +33,7 @@ public class GetAccessTokenV5 {
             keystore.load(is, oauthConfig.getPassword().toCharArray());
             Key key=keystore.getKey(oauthConfig.getAlias(),oauthConfig.getAliasPassword().toCharArray());
 
-            URI tokenEndpoint = new URI(POC_CONFIG.inst.getOauth2V2TokenEndpoint());
+            URI tokenEndpoint = new URI(POC_CONFIG.inst.getOauth2V5TokenEndpoint());
 // The credentials to authenticate the client at the token endpoint
             ClientID clientID = new ClientID(oauthConfig.getClientId());
 
@@ -50,6 +50,7 @@ public class GetAccessTokenV5 {
 // Make the token request
             TokenRequest request = new TokenRequest(tokenEndpoint, clientAuth, clientGrant, scope);
             HTTPRequest httpRequest=request.toHTTPRequest();
+            System.out.println(httpRequest.getQuery());
             TokenResponse response = TokenResponse.parse(httpRequest.send());
 
             if (!response.indicatesSuccess()) {

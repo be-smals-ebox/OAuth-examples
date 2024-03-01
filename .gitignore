@@ -1,0 +1,4 @@
+/ouath-introspect/target/
+*.class
+*.p12
+*.jks
